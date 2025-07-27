@@ -8,6 +8,7 @@ import {
 import { Layout } from "./pages/Layout";
 import { Home } from "./pages/Home";
 import { Details } from "./pages/Details";
+import { Favorites } from "./pages/Favorites";
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -23,6 +24,7 @@ export const router = createBrowserRouter(
         {/* Nested Routes: Defines sub-routes within the BaseHome component. */}
         <Route path= "/" element={<Home />} />
         <Route path="/:type/:id" element={<Details />} />
+        <Route path="/favorites" element={<Favorites />} />
       </Route>
     )
 );

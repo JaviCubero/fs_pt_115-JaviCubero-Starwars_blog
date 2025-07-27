@@ -48,9 +48,9 @@ export const getDetails = async (store, dispatch, type, id) => {
 
     if (response.ok) {
         const data = await response.json();
-        //if (JSON.stringify(data.results) !== JSON.stringify(store.characters)) {
-        //    dispatch({ type: "getCharacters", payload: data.results});
-		//}
+        if (JSON.stringify(data.result.properties) !== JSON.stringify(store.details)) {
+            dispatch({ type: "getDetails", payload: data.result.properties});
+		}
         return data;
     } else {
         console.log("Error ", response.status, response.statusText);

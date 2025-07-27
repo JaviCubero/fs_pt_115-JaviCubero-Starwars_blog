@@ -2,7 +2,8 @@ export const initialStore=()=>{
   return{
     characters: [],
     vehicles: [],
-    planets: []
+    planets: [],
+    details: {}
   }
 }
 
@@ -22,6 +23,11 @@ export default function storeReducer(store, action = {}) {
       return {
         ...store,
         planets: action.payload
+      };
+    case 'getDetails':
+      return {
+        ...store,
+        details: action.payload
       };
     default:
       throw Error('Unknown action.');

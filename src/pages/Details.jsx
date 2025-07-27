@@ -11,10 +11,11 @@ export const Details = () => {
     useEffect (() => {
         getDetails(store, dispatch, type, id)
     }, [])
+    
 
     return (
-        <div>
-            <p>Detalles</p>
+        <div className="container">
+            <p>{store.details.name}</p>
         </div>
     )
 }
