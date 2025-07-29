@@ -14,7 +14,7 @@ export const Layout = () => {
         getCharacters(store, dispatch)
         getVehicles(store, dispatch)
         getPlanets(store, dispatch)
-    }, [])
+    }, [store])
 
     return (
         <ScrollToTop>

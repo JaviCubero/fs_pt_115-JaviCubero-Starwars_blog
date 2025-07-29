@@ -5,6 +5,28 @@ export const Home = () => {
 
 	const { store, dispatch } = useGlobalReducer()
 
+	function addFavorite(type, payload) {
+		if (!store.favorites[type].includes(payload)) {
+			dispatch({
+				type: "addFavorite", payload: {
+					typeAdd: type,
+					payloadAdd: payload
+				}
+			})
+		}
+	}
+
+	function deleteFavorite(type, payload, uid) {
+		if (store.favorites[type].includes(payload)) {
+			dispatch({
+				type: "deleteFavorite", payload: {
+					typeDelete: type,
+					uidDelete: uid
+				}
+			})
+		}
+	}
+
 	return (
 		<div className="container">
 
@@ -27,7 +49,7 @@ export const Home = () => {
 							{
 								store.characters.map((character) => {
 									return (
-										<div className="col-xs-12 col-sm-6 col-lg-4 col-xl-3 mt-4 p-0 d-flex justify-content-center" key={character.uid}>
+										<div className="col-sm-12 col-md-6 col-lg-4 col-xxl-3 mt-4 p-0 d-flex justify-content-center" key={character.uid}>
 											<div className="card text-white bg-black bg-opacity-10 border-white" style={{ width: "18rem" }}>
 												<img src={`https://raw.githubusercontent.com/tbone849/star-wars-guide/refs/heads/master/build/assets/img/characters/${character.uid}.jpg`} className="card-img-top" />
 												<div className="card-body border-top border-light">
@@ -36,7 +58,10 @@ export const Home = () => {
 														<Link to={`/people/${character.uid}`}>
 															<button className="btn btn-outline-light">Details</button>
 														</Link>
-														<button className="btn btn-outline-light"><i class="fa-regular fa-star"></i></button>
+														{
+															store.favorites.characters.includes(character) ? <button className="btn btn-outline-light" onClick={() => { deleteFavorite("characters", character, character.uid) }}><i class="fa-solid fa-star"></i></button>
+																: <button className="btn btn-outline-light" onClick={() => { addFavorite("characters", character) }}><i class="fa-regular fa-star"></i></button>
+														}
 													</div>
 												</div>
 											</div>
@@ -54,16 +79,19 @@ export const Home = () => {
 							{
 								store.vehicles.map((vehicle) => {
 									return (
-										<div className="col-xs-12 col-sm-6 col-lg-4 col-xl-3 mt-4 p-0 d-flex justify-content-center" key={vehicle.uid}>
+										<div className="col-sm-12 col-md-6 col-lg-4 col-xxl-3 mt-4 p-0 d-flex justify-content-center" key={vehicle.uid}>
 											<div className="card text-white bg-black bg-opacity-10 border-white" style={{ width: "18rem" }}>
 												<img src={`https://raw.githubusercontent.com/tbone849/star-wars-guide/refs/heads/master/build/assets/img/vehicles/${vehicle.uid}.jpg`} className="card-img-top" />
 												<div className="card-body border-top border-light">
 													<h5 className="card-title">{vehicle.name}</h5>
 													<div className="d-flex justify-content-between">
-														<Link to={`/people/${vehicle.uid}`}>
+														<Link to={`/vehicles/${vehicle.uid}`}>
 															<button className="btn btn-outline-light">Details</button>
 														</Link>
-														<button className="btn btn-outline-light"><i class="fa-regular fa-star"></i></button>
+														{
+															store.favorites.vehicles.includes(vehicle) ? <button className="btn btn-outline-light" onClick={() => { deleteFavorite("vehicles", vehicle, vehicle.uid) }}><i class="fa-solid fa-star"></i></button>
+																: <button className="btn btn-outline-light" onClick={() => { addFavorite("vehicles", vehicle) }}><i class="fa-regular fa-star"></i></button>
+														}
 													</div>
 												</div>
 											</div>
@@ -81,19 +109,21 @@ export const Home = () => {
 							{
 								store.planets.map((planet) => {
 									return (
-										<div className="col-xs-12 col-sm-6 col-lg-4 col-xl-3 mt-4 p-0 d-flex justify-content-center" key={planet.uid}>
+										<div className="col-sm-12 col-md-6 col-lg-4 col-xxl-3 mt-4 p-0 d-flex justify-content-center" key={planet.uid}>
 											<div className="card text-white bg-black bg-opacity-10 border-white" style={{ width: "18rem" }}>
 												<img src={`https://raw.githubusercontent.com/tbone849/star-wars-guide/refs/heads/master/build/assets/img/planets/${planet.uid}.jpg`} className="card-img-top" onError={(e) => {
-													console.error(`No se pudo cargar la imagen de ${planet.name}, se usará una de backup.`);
-													e.target.src = "https://static.wikia.nocookie.net/esstarwars/images/b/b0/Tatooine_TPM.png/revision/latest?cb=20131214162357"; // Imagen de backup
+													e.target.src = "https://static.wikia.nocookie.net/esstarwars/images/b/b0/Tatooine_TPM.png/revision/latest?cb=20131214162357"; // Imagen backup Tatooine
 												}} />
 												<div className="card-body border-top border-light">
 													<h5 className="card-title">{planet.name}</h5>
 													<div className="d-flex justify-content-between">
-														<Link to={`/people/${planet.uid}`}>
+														<Link to={`/planets/${planet.uid}`}>
 															<button className="btn btn-outline-light">Details</button>
 														</Link>
-														<button className="btn btn-outline-light"><i class="fa-regular fa-star"></i></button>
+														{
+															store.favorites.planets.includes(planet) ? <button className="btn btn-outline-light" onClick={() => { deleteFavorite("planets", planet, planet.uid) }}><i class="fa-solid fa-star"></i></button>
+																: <button className="btn btn-outline-light" onClick={() => { addFavorite("planets", planet) }}><i class="fa-regular fa-star"></i></button>
+														}
 													</div>
 												</div>
 											</div>
@@ -104,7 +134,6 @@ export const Home = () => {
 						</div>
 					</div>
 				</div>
-
 			</div>
 		</div>
 	);

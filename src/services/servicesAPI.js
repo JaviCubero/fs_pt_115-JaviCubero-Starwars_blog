@@ -4,7 +4,7 @@ export const getCharacters = async (store, dispatch) => {
     if (response.ok) {
         const data = await response.json();
         if (JSON.stringify(data.results) !== JSON.stringify(store.characters)) {
-            dispatch({ type: "getCharacters", payload: data.results});
+            dispatch({ type: "getCharacters", payload: data.results });
 		}
         return data;
     } else {
@@ -19,7 +19,7 @@ export const getVehicles = async (store, dispatch) => {
     if (response.ok) {
         const data = await response.json();
         if (JSON.stringify(data.results) !== JSON.stringify(store.vehicles)) {
-            dispatch({ type: "getVehicles", payload: data.results});
+            dispatch({ type: "getVehicles", payload: data.results });
 		}
         return data;
     } else {
@@ -34,7 +34,7 @@ export const getPlanets = async (store, dispatch) => {
     if (response.ok) {
         const data = await response.json();
         if (JSON.stringify(data.results) !== JSON.stringify(store.planets)) {
-            dispatch({ type: "getPlanets", payload: data.results});
+            dispatch({ type: "getPlanets", payload: data.results });
 		}
         return data;
     } else {
@@ -48,8 +48,8 @@ export const getDetails = async (store, dispatch, type, id) => {
 
     if (response.ok) {
         const data = await response.json();
-        if (JSON.stringify(data.result.properties) !== JSON.stringify(store.details)) {
-            dispatch({ type: "getDetails", payload: data.result.properties});
+        if (JSON.stringify(data.result) !== JSON.stringify(store.details)) {
+            dispatch({ type: "getDetails", payload: data.result });
 		}
         return data;
     } else {

@@ -1,14 +1,19 @@
-export const initialStore=()=>{
-  return{
+export const initialStore = () => {
+  return {
     characters: [],
     vehicles: [],
     planets: [],
-    details: {}
+    details: {},
+    favorites: {
+      characters: [],
+      vehicles: [],
+      planets: []
+    }
   }
 }
 
 export default function storeReducer(store, action = {}) {
-  switch(action.type){
+  switch (action.type) {
     case 'getCharacters':
       return {
         ...store,
@@ -29,7 +34,27 @@ export default function storeReducer(store, action = {}) {
         ...store,
         details: action.payload
       };
+    case 'addFavorite':
+      const { typeAdd, payloadAdd } = action.payload;
+
+      return {
+        ...store,
+        favorites: {
+          ...store.favorites,
+          [typeAdd]: [...store.favorites[typeAdd], payloadAdd]
+        }
+      };
+    case 'deleteFavorite':
+      const { typeDelete, uidDelete } = action.payload;
+
+      return {
+        ...store,
+        favorites: {
+          ...store.favorites,
+          [typeDelete]: store.favorites[typeDelete].filter(item => item.uid !== uidDelete)
+        }
+      };
     default:
       throw Error('Unknown action.');
-  }    
+  }
 }

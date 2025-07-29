@@ -1,6 +1,6 @@
 export const Footer = () => (
     <div className="container">
-        <footer className="footer mt-auto py-3 text-center">
+        <footer className="footer mt-5 mb-4 text-center">
             <hr className="mb-4 text-white" />
             <div className="row">
                 <div className="col-md-12 text-center text-white">
